@@ -12,9 +12,9 @@
     <span class="top"></span>
 
     <div class="container-fluid bg-white chatbox shadow-lg rounded">
-      <div class="row">
-        <div class="col-md-4">
-            <div class="card">
+      <div class="row h-100">
+        <div class="col-md-4 pr-0 d-none d-md-block">
+            <div class="card h-100">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-7">
@@ -30,7 +30,7 @@
                        <input type="text" placeholder="Search or new chat" class="form-control form-rounded"/>
                     </li>
 
-                    <li class="list-group-item list-group-item-action">
+                    <li class="list-group-item list-group-item-action" onclick="StartChat(1)">
                       <div class="row">
                         <div class="col-md-2">
                           <img src="./images/pp.png" class="friend-pic" alt="profile pic"> 
@@ -72,18 +72,18 @@
             </div>
         </div>
 
-        <div class="col-md-8">
-          <div class="card">
+        <div class="col-md-8 pl-0">
+          <div id="chatPanel" class="card h-100" style="display: none;">
             <div class="card-header">
               <div class="row">
-                <div class="col-md-2">
+                <div class="col-2 col-sm-2 col-md-2 col-lg-1">
                   <img src="./images/pp.png" class="profile-pic" alt="profile pic">                                     
                 </div>
-                <div class="col-md-6">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-8">
                   <div class="name"> Any Name </div>
                   <div class="under-name"> Last seen 17/9/2020 </div>      
                 </div>  
-                <div class="col-md-4 icon">
+                <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon">
                    <i class="fas fa-search"></i>
                    <i class="fas fa-paperclip ml-4"></i>
                    <i class="fas fa-ellipsis-v ml-4"></i>
@@ -96,13 +96,25 @@
                <div class="col-md-1">
                   <i class="far fa-grin fa-2x"></i>                     
                </div>
-               <div class="col-md-10"></div>
-               <div class="col-md-1"></div>
+               <div class="col-md-10">
+                 <input type="text" placeholder="Type here" class="form-control form-rounded" />
+               </div>
+               <div class="col-md-1">
+                 <i class="fas fa-microphone fa-2x"></i>
+               </div>
              </div>  
             </div>
           </div>
+
+
+
+
+          <div id="divStart" class="text-center">
+             <i class="fas fa-comments mt-5" style="font-size: 250px;"></i>
+             <h2 class="mt-3"> Select your friend from the list and start chating. </h2>
+          </div>
         </div>  
-     </div>        
+      </div>        
     </div>
 
 
