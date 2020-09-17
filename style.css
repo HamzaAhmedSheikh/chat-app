@@ -8,4 +8,52 @@ body,html {
 
 body {
     font-family: 'Segoe UI', Helvetica Nenu, Helvetica, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(180deg, #dddbd1, #d2dbdc);
+}
+
+.top {
+    height: 130px;
+    width: 100%;
+    background-color: #009688;
+    position: fixed;
+    z-index: -1;
+}
+
+.chatbox {
+    height: calc(100% - 40px);
+    width: 95% !important;
+    margin-top: 20px;
+}
+
+.profile-pic {
+    height: 40px;
+    width: 40px;
+}
+
+.form-rounded {
+    border-radius: 1rem;
+}
+
+.bg {
+    background-color: #f8f8f8;
+}
+
+.friend-pic {
+    height: 50px;
+    width: 50px;
+} 
+
+.name {
+    font-weight: 400;
+    color: #000;
+}
+
+.under-name {
+    font-size: 12px;
+    line-height: 15px;
+    max-height: 15px;
+}
+
+.cursor {
+    cursor: pointer;
 }
