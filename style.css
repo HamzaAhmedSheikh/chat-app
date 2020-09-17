@@ -57,3 +57,9 @@ body {
 .cursor {
     cursor: pointer;
 }
+
+.icon {
+    font-size: 20px;
+    color: #9CA1A3;
+}
+
