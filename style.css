@@ -91,3 +91,27 @@ body {
     margin-left: 1%;
 }
 
+.card {
+    height: 94vh;
+}
+
+#messages {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.btn {
+    border-radius: 50px;
+    padding: 10px 0;
+    color: #fff;      
+    
+ }
+
+.google {
+    background-color: #CC3333;
+    transition: all 0.3s ease 0s;    
+}
+
+.google:hover {
+    color: #fff;
+}
