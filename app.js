@@ -70,12 +70,13 @@ console.log('Hello Chat App');
     if(user) {
         // alert(firebase.auth().currentUser.email + '\n' + firebase.auth().currentUser.displayName)
     
-      document.getElementById('imgProfile').src = firebase.auth().currentUser.photoURL;
-      document.getElementById('imgProfile').title = firebase.auth().currentUser.displayName;  
-      
-      document.getElementById('linkSignIn').style = 'display: none';
-      document.getElementById('linkSignOut').style = ''; 
-      
+      var userProfile = { email: '', name: '', photoURL: '' };
+
+      userProfile.email = firebase.auth().currentUser.email;
+      userProfile.name = firebase.auth().currentUser.displayName;
+      userProfile.photoURL = firebase.auth().currentUser.photoURL;
+
+      firebase.database().ref('users').push(userProfile, callback)
     }         
 
     else {
@@ -86,5 +87,19 @@ console.log('Hello Chat App');
         document.getElementById('linkSignOut').style = 'display: none'; 
     }
  }
+
+  function callback(error) {
+     if(error) {
+        alert(error)
+     }       
+
+     else {
+        document.getElementById('imgProfile').src = firebase.auth().currentUser.photoURL;
+        document.getElementById('imgProfile').title = firebase.auth().currentUser.displayName;  
+        
+        document.getElementById('linkSignIn').style = 'display: none';
+        document.getElementById('linkSignOut').style = ''; 
+     }
+  }
 
  onFirebaseStateChanged();
