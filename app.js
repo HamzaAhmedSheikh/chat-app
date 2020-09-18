@@ -53,4 +53,38 @@ console.log('Hello Chat App');
 
  /////////////////////////////////////////////////
 
- 
+ function signIn() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+  }
+
+ function signOut() {
+    firebase.auth().signOut();
+  }
+
+ function onFirebaseStateChanged() {
+    firebase.auth().onAuthStateChanged(onStateChanged);
+ }
+
+ function onStateChanged(user) {
+    if(user) {
+        // alert(firebase.auth().currentUser.email + '\n' + firebase.auth().currentUser.displayName)
+    
+      document.getElementById('imgProfile').src = firebase.auth().currentUser.photoURL;
+      document.getElementById('imgProfile').title = firebase.auth().currentUser.displayName;  
+      
+      document.getElementById('linkSignIn').style = 'display: none';
+      document.getElementById('linkSignOut').style = ''; 
+      
+    }         
+
+    else {
+        document.getElementById('imgProfile').src = './images/pp.png'; 
+        document.getElementById('imgProfile').title = '';   
+        
+        document.getElementById('linkSignIn').style = '';
+        document.getElementById('linkSignOut').style = 'display: none'; 
+    }
+ }
+
+ onFirebaseStateChanged();

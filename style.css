@@ -29,6 +29,7 @@ body {
 .profile-pic {
     height: 40px;
     width: 40px;
+    border-radius: 50px;
 }
 
 .form-rounded {
@@ -114,4 +115,8 @@ body {
 
 .google:hover {
     color: #fff;
+}
+
+.dropdown-toggle::before {
+    display: none !important;
 }
