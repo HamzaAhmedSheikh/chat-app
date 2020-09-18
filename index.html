@@ -50,9 +50,24 @@
                      </span>
 
                       <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item"> New Chat </a>
+                        <a href="#" class="dropdown-item" onclick="PopulateFriendList()" data-toggle="modal" data-target="#modalFriendList"> New Chat </a>
                         <a href="#" id="linkSignIn" onclick="signIn()" class="dropdown-item"> Sign In </a>
                         <a href="#" id="linkSignOut" onclick="signOut()" class="dropdown-item" style="display: none;"> Sign Out </a> 
+                      </div>
+
+                      <div class="modal fade" id="modalFriendList">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="card">
+                              <div class="card-header">
+                                Friend List
+                                <span class="close" data-dismiss="modal" style="cursor: pointer;">&times;</span>
+                              </div>
+                              <ul class="list-group list-group-flush" id="listFriend"></ul>     
+
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>                    
                   </div>                  

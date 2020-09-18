@@ -53,6 +53,44 @@ console.log('Hello Chat App');
 
  /////////////////////////////////////////////////
 
+ function PopulateFriendList() {
+    document.getElementById('listFriend').innerHTML = `<div class="text-center">
+                                                         <span class="spinner-border text-primary mt-5" style="width: 7rem; height: 7rem;"></span> 
+                                                       </div>`
+
+    var db = firebase.database().ref('users')
+    var list = '';
+    db.on('value', function(users) {
+
+      if(users.hasChildren()) {
+         list = `<li class="list-group-item bg"> 
+                         <input type="text" placeholder="Search or new chat" class="form-control form-rounded"/>
+                     </li>`
+      }
+
+      users.forEach(function(data) {
+         var user = data.val();          
+         list += `<li class="list-group-item list-group-item-action" onclick="StartChat(1)">
+                    <div class="row">
+                     <div class="col-md-2">
+                      <img src="${user.photoURL}" class="friend-pic rounded-circle" alt="profile pic"> 
+                     </div>  
+ 
+                     <div class="col-md-10 cursor">
+                       <div class="name"> ${user.name} </div>                                        
+                    </div>  
+                   </div>  
+                  </li>`
+      });
+
+      document.getElementById('listFriend').innerHTML = list;
+   });
+                                              
+ }
+
+
+ 
+
  function signIn() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
@@ -98,8 +136,7 @@ console.log('Hello Chat App');
         
                   document.getElementById('linkSignIn').style = 'display: none';
                   document.getElementById('linkSignOut').style = '';                   
-               }
-               
+               }               
          })
 
       // firebase.database().ref('users').push(userProfile, callback)
