@@ -1,11 +1,12 @@
 console.log('Hello Chat App');
 
   var currentUserKey = '';
+  var chatKey = '';
 
  function StartChat(friendKey, friendName, friendPhoto) {
 
    var friendList = {friendId: friendKey, userId: currentUserKey}
-
+     
    var db = firebase.database().ref('friend_list')
    var flag = false;
 
@@ -15,39 +16,43 @@ console.log('Hello Chat App');
             var user = data.val()
             
             if((user.friendId === friendList.friendId && user.userId === friendList.userId) || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
-                 flag = true
+                 flag = true;
+                 chatKey = data.key;
               }                       
          });
          
            if(flag === false) {
               
-            firebase.database().ref('friend_list').push(friendList, function(error) {
-               if(error) alert(error)
+            chatKey = firebase.database().ref('friend_list').push(friendList, function(error) {
+
+                     if(error) alert(error)
+
+                     else {
+                        document.getElementById('chatPanel').removeAttribute('style');
+                        document.getElementById('divStart').setAttribute('style', 'display:none');
        
-               else {
-                  document.getElementById('chatPanel').removeAttribute('style');
-                  document.getElementById('divStart').setAttribute('style', 'display:none');
-       
-                  hideChatList()
+                        hideChatList()
              }
-          });
+          }).getKey();
         }
             else {
                document.getElementById('chatPanel').removeAttribute('style');
                document.getElementById('divStart').setAttribute('style', 'display:none');
 
-      
+                
                hideChatList()          
+
+               
             }
 
             // ===> display friend name and photo
             
-              document.getElementById('divChatName').innerHTML = friendName;
-              document.getElementById('imgChat').src = friendPhoto;
+               document.getElementById('divChatName').innerHTML = friendName;
+               document.getElementById('imgChat').src = friendPhoto;
         
       });
       
-     
+   }
      
    //   firebase.database().ref('friend_list').push(friendList, function(error) {
    //      if(error) alert(error)
@@ -65,7 +70,7 @@ console.log('Hello Chat App');
    //   document.getElementById('divStart').setAttribute('style', 'display:none');
 
    //   hideChatList()
- }
+ //}
 
  ////////////////////////////////
 
@@ -91,24 +96,37 @@ console.log('Hello Chat App');
  }
 
  function SendMessage() {
-     let message = `<div class="row justify-content-end">              
-                     <div class="col-6 col-sm-7 col-md-7">
-                      <p class="sent float-right"> 
-                        ${document.getElementById('txtMessage').value}                      
-                       <span class="time float-right"> 1:28 PM </span>
-                      </p>
-                     </div>
+    var chatMessage = {
+         msg: document.getElementById('txtMessage').value,
+         dateTime: new Date().toLocaleString()
+      };
+
+       firebase.database().ref('chatMessages').child(chatKey).push(chatMessage, function(error) {
+          if(error) alert(error)
+
+          else {
+
+            let message = `<div class="row justify-content-end">         
+                            <div class="col-6 col-sm-7 col-md-7">
+                              <p class="sent float-right"> 
+                               ${document.getElementById('txtMessage').value}                      
+                               <span class="time float-right"> 1:28 PM </span>
+                              </p>
+                            </div>
                      
-                     <div class="col-2 col-sm-1 col-md-1">
-                      <img src="./images/pp.png" class="chat-pic" alt="profile-pic" />
-                     </div>  
-                    </div>`
+                            <div class="col-2 col-sm-1 col-md-1">
+                             <img src="${firebase.auth().currentUser.photoURL}" class="chat-pic" alt="profile-pic" />
+                            </div>  
+                           </div>`
 
         document.getElementById('messages').innerHTML += message;
         document.getElementById('txtMessage').value = '';   
         document.getElementById('txtMessage').focus();       
 
         document.getElementById('messages').scrollTo(0, document.getElementById('messages').clientHeight);
+
+      }
+   });  
  }
 
  /////////////////////////////////////////////////
@@ -133,7 +151,7 @@ console.log('Hello Chat App');
 
           if(user.email !== firebase.auth().currentUser.email) {
              
-            list += `<li class="list-group-item list-group-item-action" data-dismiss="modal" onclick="StartChat('${data.key}, ${user.name}, ${user.photoURL}')">
+            list += `<li class="list-group-item list-group-item-action" data-dismiss="modal" onclick="StartChat('${data.key}', '${user.name}','${user.photoURL}')">
                       <div class="row">
                         <div class="col-md-2">
                          <img src='${user.photoURL}' class="friend-pic rounded-circle" alt="profile pic"> 
