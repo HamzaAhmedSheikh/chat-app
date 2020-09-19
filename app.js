@@ -1,10 +1,70 @@
 console.log('Hello Chat App');
 
- function StartChat(id) {
-     document.getElementById('chatPanel').removeAttribute('style');
-     document.getElementById('divStart').setAttribute('style', 'display:none');
+  var currentUserKey = '';
 
-     hideChatList()
+ function StartChat(friendKey, friendName, friendPhoto) {
+
+   var friendList = {friendId: friendKey, userId: currentUserKey}
+
+   var db = firebase.database().ref('friend_list')
+   var flag = false;
+
+      db.on('value', function(friends) {
+
+         friends.forEach(function(data) {
+            var user = data.val()
+            
+            if((user.friendId === friendList.friendId && user.userId === friendList.userId) || ((user.friendId === friendList.userId && user.userId === friendList.friendId))) {
+                 flag = true
+              }                       
+         });
+         
+           if(flag === false) {
+              
+            firebase.database().ref('friend_list').push(friendList, function(error) {
+               if(error) alert(error)
+       
+               else {
+                  document.getElementById('chatPanel').removeAttribute('style');
+                  document.getElementById('divStart').setAttribute('style', 'display:none');
+       
+                  hideChatList()
+             }
+          });
+        }
+            else {
+               document.getElementById('chatPanel').removeAttribute('style');
+               document.getElementById('divStart').setAttribute('style', 'display:none');
+
+      
+               hideChatList()          
+            }
+
+            // ===> display friend name and photo
+            
+              document.getElementById('divChatName').innerHTML = friendName;
+              document.getElementById('imgChat').src = friendPhoto;
+        
+      });
+      
+     
+     
+   //   firebase.database().ref('friend_list').push(friendList, function(error) {
+   //      if(error) alert(error)
+
+   //      else {
+   //         document.getElementById('chatPanel').removeAttribute('style');
+   //         document.getElementById('divStart').setAttribute('style', 'display:none');
+
+   //         hideChatList()
+   //    }
+   // });
+
+
+   //   document.getElementById('chatPanel').removeAttribute('style');
+   //   document.getElementById('divStart').setAttribute('style', 'display:none');
+
+   //   hideChatList()
  }
 
  ////////////////////////////////
@@ -70,17 +130,21 @@ console.log('Hello Chat App');
 
       users.forEach(function(data) {
          var user = data.val();          
-         list += `<li class="list-group-item list-group-item-action" onclick="StartChat(1)">
-                    <div class="row">
-                     <div class="col-md-2">
-                      <img src="${user.photoURL}" class="friend-pic rounded-circle" alt="profile pic"> 
-                     </div>  
+
+          if(user.email !== firebase.auth().currentUser.email) {
+             
+            list += `<li class="list-group-item list-group-item-action" data-dismiss="modal" onclick="StartChat('${data.key}, ${user.name}, ${user.photoURL}')">
+                      <div class="row">
+                        <div class="col-md-2">
+                         <img src='${user.photoURL}' class="friend-pic rounded-circle" alt="profile pic"> 
+                        </div>  
  
-                     <div class="col-md-10 cursor">
-                       <div class="name"> ${user.name} </div>                                        
-                    </div>  
-                   </div>  
-                  </li>`
+                       <div class="col-md-10 cursor">
+                         <div class="name"> ${user.name} </div>                                        
+                       </div>  
+                      </div>  
+                     </li>`
+          }         
       });
 
       document.getElementById('listFriend').innerHTML = list;
@@ -121,9 +185,12 @@ console.log('Hello Chat App');
             users.forEach(function(data) {
                var user = data.val();
 
-               if(user.email === userProfile.email)
+               if(user.email === userProfile.email) {
+                  currentUserKey = data.key;
+                  flag = true                  
+               }
                        
-                  flag = true
+                  
             });
 
                if(flag === false) {
@@ -137,6 +204,9 @@ console.log('Hello Chat App');
                   document.getElementById('linkSignIn').style = 'display: none';
                   document.getElementById('linkSignOut').style = '';                   
                }               
+
+               document.getElementById('linkNewChat').classList.remove('disabled');
+
          })
 
       // firebase.database().ref('users').push(userProfile, callback)
@@ -148,6 +218,8 @@ console.log('Hello Chat App');
         
         document.getElementById('linkSignIn').style = '';
         document.getElementById('linkSignOut').style = 'display: none'; 
+
+        document.getElementById('linkNewChat').classList.add('disabled');
     }
  }
 

@@ -50,7 +50,7 @@
                      </span>
 
                       <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item" onclick="PopulateFriendList()" data-toggle="modal" data-target="#modalFriendList"> New Chat </a>
+                        <a href="#" class="dropdown-item" id="linkNewChat"  onclick="PopulateFriendList()" data-toggle="modal" data-target="#modalFriendList"> New Chat </a>
                         <a href="#" id="linkSignIn" onclick="signIn()" class="dropdown-item"> Sign In </a>
                         <a href="#" id="linkSignOut" onclick="signOut()" class="dropdown-item" style="display: none;"> Sign Out </a> 
                       </div>
@@ -127,14 +127,14 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-1 col-sm-1 col-md-1 col-lg-1">
-                  <i class="fas fa-list mt-2" style="cursor: pointer;" onclick="showChatList()"></i>
+                  <i class="fas fa-list mt-2 d-md-none" style="cursor: pointer;" onclick="showChatList()"></i>
                 </div>                
                 <div class="col-2 col-sm-2 col-md-2 col-lg-1">
-                  <img src="./images/pp.png" class="profile-pic" alt="profile pic">                                     
+                  <img src="./images/pp.png" id="imgChat" class="profile-pic" alt="profile pic" />                                     
                 </div>
                 <div class="col-5 col-sm-5 col-md-5 col-lg-7">
-                  <div class="name"> Any Name </div>
-                  <div class="under-name"> Last seen 17/9/2020 </div>      
+                  <div class="name" id="divChatName"> Any Name </div>
+                  <div class="under-name" id="divChatSeen"> Last seen 17/9/2020 </div>      
                 </div>  
                 <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon">
                    <i class="fas fa-search"></i>
