@@ -73,7 +73,7 @@ console.log('Hello Chat App');
         chats.forEach(function(data) {
          var chat = data.val();
          var dateTime = chat.dateTime.split(",");         
-
+          
          if(chat.userId !== currentUserKey) {
             messageDisplay += `
                <div class="row">
@@ -164,7 +164,7 @@ console.log('Hello Chat App');
         document.getElementById('txtMessage').value = '';   
         document.getElementById('txtMessage').focus();       
 
-        //document.getElementById('messages').scrollTo(0, document.getElementById('messages').clientHeight);
+       //document.getElementById('messages').scrollTo(0, document.getElementById('messages').clientHeight);
 
       }
    });  
@@ -172,28 +172,45 @@ console.log('Hello Chat App');
 
  /////////////////////////////////////////////////
 
-  function LoadChatList() {
-//    var db = firebase.database().ref('friend_list');
-//    db.on('value', function (lists) {
-//        document.getElementById('lstChat').innerHTML = `
-//          <li class="list-group-item" style="background-color:#f8f8f8;">
-//            <input type="text" placeholder="Search or new chat" class="form-control form-rounded" />
-//          </li>`;
+   function LoadChatList() {
+   var db = firebase.database().ref('friend_list');
+   db.on('value', function (lists) {
+       document.getElementById('lstChat').innerHTML = `
+         <li class="list-group-item" style="background-color:#f8f8f8;">
+          <input type="text"
+                 placeholder="Search or new chat"
+                 class="form-control form-rounded" />
+         </li>`;
 
-//        lists.forEach(function (data) {
-//            var lst = data.val();
-//            var friendKey = "";
-//            if (lst.friendId === currentUserKey) {
-//                friendKey = lst.userId;
-//            }
-//            else if (lst.userId === currentUserKey) {
-//                friendKey = lst.friendId;
-//            }
-              
-//            firebase.database().ref('users').child(friendKey).on('value', function (data) {});
 
-//          });
-//       });  
+       lists.forEach(function (data) {
+           var lst = data.val();
+           var friendKey = '';
+           if (lst.friendId === currentUserKey) {
+               friendKey = lst.userId;
+           }
+           else if (lst.userId === currentUserKey) {
+               friendKey = lst.friendId;
+           }
+             
+           if (friendKey !== "") {
+               firebase.database().ref('users').child(friendKey).on('value', function (data) {
+                   var user = data.val();
+                   document.getElementById('lstChat').innerHTML += `<li class="list-group-item list-group-item-action" onclick="StartChat('${data.key}', '${user.name}', '${user.photoURL}')">
+                           <div class="row">
+                               <div class="col-md-2">
+                                   <img src="${user.photoURL}" class="friend-pic rounded-circle" />
+                               </div>
+                               <div class="col-md-10" style="cursor:pointer;">
+                                   <div class="name">${user.name}</div>
+                                   <div class="under-name">This is some message text...</div>
+                               </div>
+                           </div>
+                       </li>`;
+               });
+           }
+       });
+   });
  }
 
  function PopulateFriendList() {
