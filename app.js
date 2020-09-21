@@ -170,6 +170,35 @@ console.log('Hello Chat App');
    });  
  }
 
+ /////////////////////////////////////////////// 
+ // ===> Emoji 
+
+ loadAllEmoji();
+
+ function loadAllEmoji() {
+    var emoji = '';
+
+    for(var i = 128512; i <= 128567; i++) {
+       emoji += `<a href="#" onclick="getEmoji(this)" style="font-size:25px">&#${i};</a>`       
+    }
+
+    document.getElementById('smiley').innerHTML = emoji
+
+
+ }
+
+ function showEmojiPanel() {
+    document.getElementById('emoji').removeAttribute('style')
+ }
+
+ function hideEmojiPanel() {
+   document.getElementById('emoji').setAttribute('style', 'display: none')
+}
+ 
+ function getEmoji(control) {
+    document.getElementById('txtMessage').value += control.innerHTML;
+ }
+
  /////////////////////////////////////////////////
 
    function LoadChatList() {
@@ -251,8 +280,6 @@ console.log('Hello Chat App');
    });
                                               
  }
-
-
  
 
  function signIn() {
