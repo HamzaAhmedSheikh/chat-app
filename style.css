@@ -144,3 +144,13 @@ body {
 .cursor {
     cursor: pointer;
 }
+
+@media (max-width: 575.98px) {
+    #smiley a {
+        font-size: 15px !important;
+    }
+ }
+
+ 
+
+ 

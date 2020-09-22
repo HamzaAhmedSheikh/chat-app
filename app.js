@@ -179,7 +179,7 @@ console.log('Hello Chat App');
     var emoji = '';
 
     for(var i = 128512; i <= 128567; i++) {
-       emoji += `<a href="#" onclick="getEmoji(this)" style="font-size:25px">&#${i};</a>`       
+       emoji += `<a href="#" onclick="getEmoji(this)" style="font-size: 4vh">&#${i};</a>`       
     }
 
     document.getElementById('smiley').innerHTML = emoji
