@@ -98,7 +98,24 @@
                 </div>  
                 <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon">
                    <i class="fas fa-search"></i>
-                   <i class="fas fa-paperclip ml-4"></i>
+                   <!-- <i class="fas fa-paperclip ml-4"></i> -->
+
+                   <span class="dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                     <i class="fas fa-paperclip ml-4"></i>
+                    </span>
+
+                     <div class="dropdown-menu">
+                       <a href="#" class="dropdown-item" onclick="ChooseImage()">
+                          Image
+                         <input type="file" id="imageFile" onchange="SendImage(this)" accept="image/*" style="display: none;"/> 
+                       </a>
+                       <a href="#" class="dropdown-item"> Document </a>
+                       <a href="#" class="dropdown-item"> Camera </a> 
+                       <a href="#" class="dropdown-item"> Video </a> 
+                     </div>                     
+                    </span>    
+
                    <i class="fas fa-ellipsis-v ml-4"></i>
                 </div>
               </div>  

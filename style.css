@@ -64,6 +64,7 @@ body {
 .icon {
     font-size: 20px;
     color: #9CA1A3;
+    cursor: pointer;
 }
 
 .chat-pic {
