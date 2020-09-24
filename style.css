@@ -101,6 +101,11 @@ body {
     overflow-x: hidden;
 }
 
+#lstChat {
+    overflow-y: scroll;
+    overflow-x: hidden;    
+}
+
 .btn {
     border-radius: 50px;
     padding: 10px 0;
