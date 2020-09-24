@@ -52,6 +52,7 @@ console.log('Hello Chat App');
                OnKeyDown();
                document.getElementById('txtMessage').value = '';
                document.getElementById('txtMessage').focus();
+               document.getElementById('messages').scrollTo(0, document.getElementById('messages').clientHeight)
 
            // ===> display the chat messages
            
