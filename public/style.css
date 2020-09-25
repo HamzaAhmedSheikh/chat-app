@@ -155,6 +155,22 @@ body {
     #smiley a {
         font-size: 15px !important;
     }
+
+    .fa-comments {
+        font-size: 115px !important;
+    }
+
+    .txt {
+        font-size: 14px !important;
+        font-weight: bolder !important;
+    }
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;        
+    }
  }
 
  
